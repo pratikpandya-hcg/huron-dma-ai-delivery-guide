@@ -361,7 +361,7 @@
   <p class="lead">Clients get a test-ready data estate on day one — no production data exposure, no waiting. Synthetic records that mirror real customer complexity let teams validate deduplication logic immediately.</p>
 
   <div class="medallion">
-    <div class="ms bz"><div class="ms-lbl">Bronze</div><div class="ms-title">Raw Ingest</div><div class="ms-desc">Synthetic CSVs pushed to a Databricks Volume via <code>SONIC_ingest_all_tables.py</code>. Records land as-is.</div></div>
+    <div class="ms bz"><div class="ms-lbl">Bronze</div><div class="ms-title">Raw Ingest</div><div class="ms-desc">Synthetic CSVs pushed to a governed Databricks Volume via an automated ingest pipeline. Records land as-is.</div></div>
     <div class="ms sv"><div class="ms-lbl">Silver</div><div class="ms-title">Cleansed &amp; Dedup-Ready</div><div class="ms-desc">Standardised customer records, duplicate candidates, deactivation &amp; reactivation staging tables.</div></div>
     <div class="ms gd"><div class="ms-lbl">Gold</div><div class="ms-title">Operational &amp; Reporting</div><div class="ms-desc">Resolved customer master — consumed by downstream analytics and validated by the Test Factory.</div></div>
   </div>
@@ -372,7 +372,7 @@
       <h3>Synthetic / SONIC-Style Data</h3>
       <ul>
         <li>Mirrors production record structures (IDs, name variants, address permutations, edge-case duplicates) — no real PII</li>
-        <li>Pushed to a Volume under the governed UC catalog path (e.g. <code>huron_singapore_dma_…</code>)</li>
+        <li>Pushed to a Volume under the client's governed Unity Catalog path — no shared or cross-tenant exposure</li>
         <li>Covers all 9 dedup categories: WB, CB, EX, FZ, AD, MS, TB, FP/FN, OP</li>
       </ul>
     </div>
@@ -400,7 +400,7 @@
       <h3>Git-First Repo Layout</h3>
       <ul>
         <li><strong>Main path</strong> — shared docs, scripts, config templates</li>
-        <li><strong>Per-user folders</strong> (e.g. <code>ppandya/</code>) — isolate experimental work until promotion</li>
+        <li><strong>Per-user folders</strong> — isolate each engineer's experimental work until it's ready to promote</li>
         <li>Config examples in Git; secrets stay local</li>
       </ul>
     </div>
@@ -408,7 +408,7 @@
       <div class="ci">🔌</div>
       <h3>Cursor + Databricks MCP</h3>
       <ul>
-        <li><code>databricks-mcp-server</code> wired via <code>.cursor/mcp.json</code></li>
+        <li>Databricks MCP integration pre-configured — connects the AI IDE directly to the live workspace</li>
         <li>Live catalog / schema / warehouse awareness at design time</li>
         <li>Optional Jira MCP for inline work-item creation</li>
       </ul>
@@ -429,7 +429,7 @@
     <div class="sync-row">
       <div class="sync-node"><div class="sn-icon">💻</div><div class="sn-title">Local Cursor Clone</div><div class="sn-sub">PAT / OAuth</div></div>
       <span class="sync-arrow">⇆</span>
-      <div class="sync-node"><div class="sn-icon">🐙</div><div class="sn-title">GitHub Main</div><div class="sn-sub">Huron-DMA-Org / Databricks_prototypes</div></div>
+      <div class="sync-node"><div class="sn-icon">🐙</div><div class="sn-title">GitHub Main</div><div class="sn-sub">Shared team repository</div></div>
       <span class="sync-arrow">⇆</span>
       <div class="sync-node"><div class="sn-icon">🔷</div><div class="sn-title">Databricks Git Folder</div><div class="sn-sub">Repo-backed notebooks</div></div>
     </div>
@@ -445,30 +445,30 @@
 
   <div class="g2">
     <div>
-      <h3>Key Scripts (on GitHub Main)</h3>
+      <h3>Pre-Built Automation Capabilities</h3>
       <table>
-        <thead><tr><th>Script</th><th>Does</th></tr></thead>
+        <thead><tr><th>Capability</th><th>What it does</th></tr></thead>
         <tbody>
-          <tr><td><code>verify_databricks_connection.py</code></td><td>Resolves env var → CLI profile → PAT; calls SCIM + cluster list</td></tr>
-          <tr><td><code>run_databricks_test.py</code></td><td>Creates notebook, submits job via REST 2.1, polls state, returns run URL</td></tr>
-          <tr><td><code>sample_analysis.py</code></td><td><code>WorkspaceClient().catalogs.list()</code> — UC enumeration</td></tr>
-          <tr><td><code>sample_etl.py</code></td><td>Config load, workspace host verification, ETL stub</td></tr>
+          <tr><td>Workspace connectivity verification</td><td>Validates credentials and confirms live access to the Databricks workspace before any pipeline runs</td></tr>
+          <tr><td>Automated notebook job runner</td><td>Submits, monitors, and reports on notebook execution without manual intervention</td></tr>
+          <tr><td>Unity Catalog enumeration</td><td>Discovers catalogs, schemas, and tables in the live workspace — feeds AI design decisions with real structure</td></tr>
+          <tr><td>ETL scaffolding</td><td>Pre-wired extract-transform-load patterns ready to adapt to client data models</td></tr>
         </tbody>
       </table>
     </div>
     <div>
-      <h3>SDK vs REST — When Each is Used</h3>
+      <h3>How the Platform Connectivity Works</h3>
       <div class="card b" style="margin-bottom:10px;">
-        <h3>Databricks SDK</h3>
-        <p>High-level UC operations: catalog/schema enumeration, warehouse queries. Handles token refresh automatically.</p>
+        <h3>High-Level Workspace Operations</h3>
+        <p>Catalog and schema discovery, warehouse queries, and Unity Catalog management handled via the official Databricks SDK — token refresh is automatic.</p>
       </div>
       <div class="card i">
-        <h3>Raw <code>requests</code> (REST 2.0/2.1)</h3>
-        <p>Job submission, run polling, SCIM calls — where explicit state transitions matter.</p>
+        <h3>Job Execution &amp; State Management</h3>
+        <p>Notebook submission, run polling, and workspace API calls use the Databricks REST API — making every state transition explicit and auditable.</p>
       </div>
       <div class="callout info" style="margin-top:10px;">
         <span class="c-icon">🔒</span>
-        <div><div class="c-title">Secrets never in Git</div><div class="c-text"><code>databricks_config.example.json</code> holds placeholders only. PATs stay in local env or <code>~/.databricks/config</code>.</div></div>
+        <div><div class="c-title">Credentials never in source control</div><div class="c-text">All connection templates use placeholder values only. Actual workspace credentials stay in the engineer's local environment — never committed to the repository.</div></div>
       </div>
     </div>
   </div>
@@ -482,7 +482,7 @@
 
   <div class="g2">
     <div>
-      <h3>Cursor Rules (<code>.cursor/rules/*.mdc</code>)</h3>
+      <h3>AI Guardrail Rules</h3>
       <div class="pipe">
         <div class="ps">
           <div class="pn b">1</div>
@@ -496,8 +496,8 @@
           <div class="pn a">2</div>
           <div class="pb">
             <h3>Dangerous Operations</h3>
-            <p>Bulk <code>DELETE</code> / <code>DROP</code> &gt;100 rows requires <strong>triple acknowledgment</strong>. Read-only PAT preferred for exploratory work.</p>
-            <div class="tags"><span class="tag a">triple-ack</span><span class="tag r">DELETE / DROP</span></div>
+            <p>Any bulk data removal or table drop affecting more than 100 rows requires <strong>three explicit confirmations</strong>. Read-only access is the default for exploratory work.</p>
+            <div class="tags"><span class="tag a">triple-confirmation</span><span class="tag r">destructive ops</span></div>
           </div>
         </div>
         <div class="ps">
@@ -515,17 +515,13 @@
       <table>
         <thead><tr><th>Setting</th><th>Value</th></tr></thead>
         <tbody>
-          <tr><td>Project</td><td><code>DP</code> (databricks_prototype)</td></tr>
-          <tr><td>Default epic</td><td><code>DP-4</code></td></tr>
-          <tr><td>Issue type</td><td><code>Bug</code></td></tr>
-          <tr><td>Labels</td><td>Auto from test category (FZ, WB, …)</td></tr>
-          <tr><td>Defect_ID writeback</td><td>Jira key → execution tracker</td></tr>
+          <tr><td>Project scope</td><td>Dedicated Jira project for this engagement — no bleed into other backlogs</td></tr>
+          <tr><td>Default epic</td><td>All AI-generated defects linked to the agreed engagement epic</td></tr>
+          <tr><td>Issue type</td><td>Bug — auto-classified from test failure type</td></tr>
+          <tr><td>Labels</td><td>Auto-applied from test scenario category</td></tr>
+          <tr><td>Defect ID writeback</td><td>Jira ticket ID written back to the test execution tracker automatically</td></tr>
         </tbody>
       </table>
-      <div class="callout warn" style="margin-top:12px;">
-        <span class="c-icon">⚠️</span>
-        <div><div class="c-title">Pending push to Main</div><div class="c-text"><code>.cursor/rules/</code>, <code>mcp-servers/</code>, and <code>mcp-enabled.json</code> are in the working clone — one PR will land them on GitHub.</div></div>
-      </div>
     </div>
   </div>
 </section>
@@ -548,11 +544,11 @@
       <h3>The 6-Step Factory Loop</h3>
       <div class="pipe">
         <div class="ps"><div class="pn b">1</div><div class="pb"><h3>Environment Discovery</h3><p>Databricks MCP enumerates live catalogs, schemas, tables, warehouses — no hardcoded paths.</p></div></div>
-        <div class="ps"><div class="pn i">2</div><div class="pb"><h3>Rule Extraction</h3><p>Agent reads dedup rules from docs/notebooks and maps each to a scenario category (WB, CB, EX, FZ, AD, MS, TB, FP, FN, OP).</p></div></div>
-        <div class="ps"><div class="pn g">3</div><div class="pb"><h3>Scenario &amp; Workbook Alignment</h3><p>Markdown scenarios aligned to Excel package; Python sync scripts seed workbooks from repo content.</p></div></div>
-        <div class="ps"><div class="pn a">4</div><div class="pb"><h3>Validation Script Execution</h3><p>4 PySpark/SQL scripts run against live silver tables via REST 2.1: <code>duplicate_log_rules</code>, <code>threshold_boundaries</code>, <code>false_positive_negative</code>, <code>operational_pipeline</code>.</p></div></div>
-        <div class="ps"><div class="pn p">5</div><div class="pb"><h3>Results &amp; Post-Run Sync</h3><p>PASS/FAIL written to markdown tracker and Excel workbooks (03_Execution_Results, 04_Traceability) via <code>sync_test_factory_post_run.py</code>.</p></div></div>
-        <div class="ps"><div class="pn r">6</div><div class="pb"><h3>Automatic Jira Defect</h3><p>On FAIL, Jira MCP creates a Bug in <strong>DP / DP-4</strong> with auto labels. Jira key written back to execution tracker — no manual copy-paste.</p><div class="tags"><span class="tag r">FAIL → Jira</span><span class="tag i">DP-4</span></div></div></div>
+        <div class="ps"><div class="pn i">2</div><div class="pb"><h3>Rule Extraction</h3><p>The AI agent reads deduplication business rules from the existing documentation and logic, then maps each rule to a structured test scenario category covering whole-block, cross-block, fuzzy, exact, alias, false positive / negative, and operational patterns.</p></div></div>
+        <div class="ps"><div class="pn g">3</div><div class="pb"><h3>Scenario &amp; Workbook Alignment</h3><p>Test scenarios are aligned to the Excel workbook package — cases, expected outcomes, and ground-truth labels are seeded automatically, ready for the validation run.</p></div></div>
+        <div class="ps"><div class="pn a">4</div><div class="pb"><h3>Validation Execution</h3><p>Four targeted validation scripts run against live silver tables: duplicate rule correctness, fuzzy-match boundary behaviour, false positive / negative detection, and end-to-end pipeline integrity.</p></div></div>
+        <div class="ps"><div class="pn p">5</div><div class="pb"><h3>Results &amp; Workbook Sync</h3><p>PASS/FAIL results written to the execution tracker and automatically synced to the Excel workbooks — no manual data entry after the run.</p></div></div>
+        <div class="ps"><div class="pn r">6</div><div class="pb"><h3>Automatic Jira Defect</h3><p>On any failure the AI agent raises a Jira bug in the agreed engagement project, with auto-applied labels and the ticket ID written back to the tracker — closing the loop without copy-paste.</p><div class="tags"><span class="tag r">FAIL → Jira</span><span class="tag i">auto-linked</span></div></div></div>
       </div>
     </div>
 
@@ -561,12 +557,12 @@
       <table>
         <thead><tr><th>#</th><th>Workbook</th><th>Populated by</th></tr></thead>
         <tbody>
-          <tr><td>01</td><td>Test_Scenarios (77)</td><td>Repo markdown → sync script</td></tr>
-          <tr><td>02</td><td>Test_Cases</td><td>AI agent seed + review</td></tr>
-          <tr><td>03</td><td>Execution_Results</td><td>Post-run sync script</td></tr>
-          <tr><td>04</td><td>Traceability</td><td>Post-run sync script</td></tr>
-          <tr><td>05</td><td>Defect_Log</td><td>Jira MCP writeback</td></tr>
-          <tr><td>06</td><td>DQ_Rule_Register</td><td>Extracted from notebooks</td></tr>
+          <tr><td>01</td><td>Test Scenarios (77)</td><td>Auto-seeded from the scenario library</td></tr>
+          <tr><td>02</td><td>Test Cases</td><td>AI agent seed + human review</td></tr>
+          <tr><td>03</td><td>Execution Results</td><td>Auto-populated after each run</td></tr>
+          <tr><td>04</td><td>Traceability</td><td>Auto-populated after each run</td></tr>
+          <tr><td>05</td><td>Defect Log</td><td>Jira ticket writeback</td></tr>
+          <tr><td>06</td><td>DQ Rule Register</td><td>Extracted from business rule documentation</td></tr>
         </tbody>
       </table>
 
@@ -612,7 +608,7 @@
           <tr><td>Traceability</td><td class="manual">Manual spreadsheet</td><td class="ai-col">Auto-synced</td></tr>
           <tr><td>Defect creation</td><td class="manual">Manual Jira entry</td><td class="ai-col">Auto on FAIL + writeback</td></tr>
           <tr><td>Repeatability</td><td class="manual">Varies by engineer</td><td class="ai-col">Same prompts every run</td></tr>
-          <tr><td>Safety guardrails</td><td class="manual">Informal</td><td class="ai-col">Cursor rules enforced</td></tr>
+          <tr><td>Safety guardrails</td><td class="manual">Informal, engineer-dependent</td><td class="ai-col">Structurally enforced</td></tr>
         </tbody>
       </table>
     </div>
@@ -621,14 +617,10 @@
   <div class="g4">
     <div class="card o"><div class="ci">⚡</div><h3>Velocity</h3><p>MCP catalog awareness + job runner automation eliminates manual plumbing from blank UC to running tests.</p></div>
     <div class="card g"><div class="ci">🏛️</div><h3>Governance</h3><p>UC-aligned paths, single-catalog scope, safety rules, and auto-traced defects — structural quality, not individual diligence.</p></div>
-    <div class="card i"><div class="ci">♻️</div><h3>Reusability</h3><p>Clone one repo, merge MCP config, run the same prompts. No tribal knowledge. No shadow tooling.</p></div>
+    <div class="card i"><div class="ci">♻️</div><h3>Reusability</h3><p>One shared asset set runs on the next Customer360 engagement without rebuilding. No tribal knowledge. No shadow tooling.</p></div>
     <div class="card a"><div class="ci">🤝</div><h3>Honest Limits</h3><p>Production changes, destructive SQL, threshold tuning, and defect triage remain human decisions — always.</p></div>
   </div>
 
-  <div class="callout warn" style="margin-top:24px;">
-    <span class="c-icon">📌</span>
-    <div><div class="c-title">Next step — single consolidation PR</div><div class="c-text">Add <code>.cursor/rules/</code>, <code>mcp-servers/</code> + <code>mcp-enabled.json</code>, <code>qa/</code>, <code>tests/customer360/</code>, and factory <code>scripts/</code> to GitHub Main — so the repo matches what the team docs already describe.</div></div>
-  </div>
 </section>
 
 </div><!-- /page -->
@@ -759,7 +751,7 @@
     </svg>
   </div>
   <p>Consulting Group · Data Management &amp; Analytics</p>
-  <p>Customer360 Databricks Prototype Program · <span class="f-accent">Huron-DMA-Org / Databricks_prototypes</span></p>
+  <p>Customer360 Databricks Prototype Program · <span class="f-accent">Data Management &amp; Analytics Practice</span></p>
   <p style="margin-top:8px; font-size:11.5px; color:#475569;">Prototype-phase summary. Confirm catalog paths and metrics against the live repo before external sharing.</p>
 </footer>
 
