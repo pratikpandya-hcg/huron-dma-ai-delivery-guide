@@ -276,7 +276,7 @@
       <img src="huron-logo.svg" alt="Huron Consulting Group" height="30" style="display:block;" />
     </div>
     <div class="nav-div"></div>
-    <span class="nav-sub">Data Management &amp; Analytics · Customer360</span>
+    <span class="nav-sub">Data Management &amp; Analytics · MDM Accelerator</span>
     <div class="nav-links">
       <a href="#foundation">Data Foundation</a>
       <a href="#design">AI Design</a>
@@ -291,9 +291,9 @@
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
-  <div class="eyebrow">Huron Consulting Group · Data Management &amp; Analytics · <span>Customer360 Prototype Program</span></div>
+  <div class="eyebrow">Huron Consulting Group · Data Management &amp; Analytics · <span>MDM &amp; Entity Resolution Accelerator</span></div>
   <h1><em>AI-Assisted</em> Data Management Delivery</h1>
-  <p class="hero-sub">Huron's proven accelerator for Databricks-based Customer360 programs — cuts test cycle effort by ~80%, eliminates manual defect logging, and ships governed data pipelines faster with built-in AI guardrails.</p>
+  <p class="hero-sub">Huron's proven accelerator for Databricks-based data management programs — cuts test cycle effort by ~80%, eliminates manual defect logging, and ships governed data pipelines faster with built-in AI guardrails.</p>
   <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;">
     <span class="tag o" style="font-size:12px; padding:5px 13px;">~80% effort reduction</span>
     <span class="tag g" style="font-size:12px; padding:5px 13px;">Repeatable across engagements</span>
@@ -352,22 +352,22 @@
 <section class="slide" id="foundation">
   <div class="sec-label">🗄️ Section 1</div>
   <h2>Data Foundation &amp; <em>Synthetic Data</em></h2>
-  <p class="lead">Clients get a test-ready data estate on day one — no production data exposure, no waiting. Synthetic records that mirror real customer complexity let teams validate deduplication logic immediately.</p>
+  <p class="lead">Clients get a test-ready data estate on day one — no production data exposure, no waiting. Engineered synthetic records that mirror real entity complexity let teams validate matching and resolution logic immediately.</p>
 
   <div class="medallion">
     <div class="ms bz"><div class="ms-lbl">Bronze</div><div class="ms-title">Raw Ingest</div><div class="ms-desc">Synthetic CSVs pushed to a governed Databricks Volume via an automated ingest pipeline. Records land as-is.</div></div>
-    <div class="ms sv"><div class="ms-lbl">Silver</div><div class="ms-title">Cleansed &amp; Dedup-Ready</div><div class="ms-desc">Standardised customer records, duplicate candidates, deactivation &amp; reactivation staging tables.</div></div>
+    <div class="ms sv"><div class="ms-lbl">Silver</div><div class="ms-title">Cleansed &amp; Resolution-Ready</div><div class="ms-desc">Standardised entity records, match candidate tables, deactivation &amp; reactivation staging — use-case-specific to the MDM data model.</div></div>
     <div class="ms gd"><div class="ms-lbl">Gold</div><div class="ms-title">Operational &amp; Reporting</div><div class="ms-desc">Resolved customer master — consumed by downstream analytics and validated by the Test Factory.</div></div>
   </div>
 
   <div class="g2">
     <div class="card b">
       <div class="ci">📦</div>
-      <h3>Synthetic / SONIC-Style Data</h3>
+      <h3>Engineered Synthetic Data</h3>
       <ul>
-        <li>Mirrors production record structures (IDs, name variants, address permutations, edge-case duplicates) — no real PII</li>
+        <li>Mirrors production entity structures (IDs, name variants, address permutations, relationship edge cases) — no real PII</li>
         <li>Pushed to a Volume under the client's governed Unity Catalog path — no shared or cross-tenant exposure</li>
-        <li>Covers all 9 dedup categories: WB, CB, EX, FZ, AD, MS, TB, FP/FN, OP</li>
+        <li>Covers all match-type and edge-case categories: exact, fuzzy, alias, master/sub, false positive / negative, and operational patterns</li>
       </ul>
     </div>
     <div class="card g">
@@ -523,8 +523,8 @@
 <!-- 5. TEST FACTORY -->
 <section class="slide" id="factory">
   <div class="sec-label">🔬 Section 5</div>
-  <h2>Customer360 <em>AI Test Factory</em></h2>
-  <p class="lead">The Test Factory is a client-facing deliverable, not an internal tool. Hand it over at the end of an engagement and the client's team runs the same 77-scenario regression independently — with automatic defect logging, traceability, and Excel workbooks already populated. No Huron resource required to re-run it.</p>
+  <h2><em>AI Test Factory</em> for MDM &amp; Entity Resolution</h2>
+  <p class="lead">The Test Factory is a client-facing deliverable, not an internal tool. Hand it over at the end of an engagement and the client's team runs the same structured regression independently — with automatic defect logging, traceability, and Excel workbooks already populated. No Huron resource required to re-run it.</p>
 
   <div class="stats">
     <div class="stat"><div class="sv o">77</div><div class="sl">Test scenarios</div></div>
@@ -538,9 +538,9 @@
       <h3>The 6-Step Factory Loop</h3>
       <div class="pipe">
         <div class="ps"><div class="pn b">1</div><div class="pb"><h3>Environment Discovery</h3><p>Databricks MCP enumerates live catalogs, schemas, tables, warehouses — no hardcoded paths.</p></div></div>
-        <div class="ps"><div class="pn i">2</div><div class="pb"><h3>Rule Extraction</h3><p>The AI agent reads deduplication business rules from the existing documentation and logic, then maps each rule to a structured test scenario category covering whole-block, cross-block, fuzzy, exact, alias, false positive / negative, and operational patterns.</p></div></div>
+        <div class="ps"><div class="pn i">2</div><div class="pb"><h3>Rule Extraction</h3><p>The AI agent reads entity resolution and matching rules from existing documentation and logic, then maps each rule to a structured test scenario category — exact match, fuzzy match, alias, hierarchy, false positive / negative, and operational patterns.</p></div></div>
         <div class="ps"><div class="pn g">3</div><div class="pb"><h3>Scenario &amp; Workbook Alignment</h3><p>Test scenarios are aligned to the Excel workbook package — cases, expected outcomes, and ground-truth labels are seeded automatically, ready for the validation run.</p></div></div>
-        <div class="ps"><div class="pn a">4</div><div class="pb"><h3>Validation Execution</h3><p>Four targeted validation scripts run against live silver tables: duplicate rule correctness, fuzzy-match boundary behaviour, false positive / negative detection, and end-to-end pipeline integrity.</p></div></div>
+        <div class="ps"><div class="pn a">4</div><div class="pb"><h3>Validation Execution</h3><p>Targeted validation scripts run against live silver tables: match rule correctness, score boundary behaviour, false positive / negative detection, and end-to-end pipeline integrity.</p></div></div>
         <div class="ps"><div class="pn p">5</div><div class="pb"><h3>Results &amp; Workbook Sync</h3><p>PASS/FAIL results written to the execution tracker and automatically synced to the Excel workbooks — no manual data entry after the run.</p></div></div>
         <div class="ps"><div class="pn r">6</div><div class="pb"><h3>Automatic Jira Defect</h3><p>On any failure the AI agent raises a Jira bug in the agreed engagement project, with auto-applied labels and the ticket ID written back to the tracker — closing the loop without copy-paste.</p><div class="tags"><span class="tag r">FAIL → Jira</span><span class="tag i">auto-linked</span></div></div></div>
       </div>
@@ -611,7 +611,7 @@
   <div class="g4">
     <div class="card o"><div class="ci">⚡</div><h3>Velocity</h3><p>MCP catalog awareness + job runner automation eliminates manual plumbing from blank UC to running tests.</p></div>
     <div class="card g"><div class="ci">🏛️</div><h3>Governance</h3><p>UC-aligned paths, single-catalog scope, safety rules, and auto-traced defects — structural quality, not individual diligence.</p></div>
-    <div class="card i"><div class="ci">♻️</div><h3>Reusability</h3><p>One shared asset set runs on the next Customer360 engagement without rebuilding. No tribal knowledge. No shadow tooling.</p></div>
+    <div class="card i"><div class="ci">♻️</div><h3>Reusability</h3><p>One shared asset set runs on the next data management engagement without rebuilding. No tribal knowledge. No shadow tooling.</p></div>
     <div class="card a"><div class="ci">🤝</div><h3>Honest Limits</h3><p>Production changes, destructive SQL, threshold tuning, and defect triage remain human decisions — always.</p></div>
   </div>
 
@@ -640,7 +640,7 @@
       <div class="ci">🔬</div>
       <h3>AI Test Factory (Turnkey)</h3>
       <ul>
-        <li>77 deduplication scenarios across 9 categories</li>
+        <li>77 entity resolution test scenarios across match-type categories</li>
         <li>4 PySpark/SQL validation scripts</li>
         <li>6-workbook Excel package, auto-populated</li>
         <li>Jira defect automation wired &amp; documented</li>
@@ -673,7 +673,7 @@
         <li>Connection verification (multi-auth)</li>
         <li>Notebook job runner (REST API 2.1)</li>
         <li>Post-run Excel sync</li>
-        <li>SONIC-style ingest pipeline</li>
+        <li>Use-case-specific data ingest pipeline</li>
       </ul>
     </div>
     <div class="card o">
@@ -694,7 +694,7 @@
     <div class="why-card">
       <div class="wc-icon">🔁</div>
       <h3>Reusable, Not Bespoke</h3>
-      <p>Built on a shared repo anyone can clone. The same accelerator runs on your next Customer360 engagement without rebuilding from scratch.</p>
+      <p>Built on a shared repo anyone can clone. The same accelerator runs on your next MDM or data management engagement without rebuilding from scratch.</p>
     </div>
     <div class="why-card">
       <div class="wc-icon">🧱</div>
@@ -740,7 +740,7 @@
     <img src="huron-logo.svg" alt="Huron Consulting Group" height="28" style="display:inline-block; filter: brightness(0) invert(1);" />
   </div>
   <p>Consulting Group · Data Management &amp; Analytics</p>
-  <p>Customer360 Databricks Prototype Program · <span class="f-accent">Data Management &amp; Analytics Practice</span></p>
+  <p>MDM &amp; Entity Resolution · Databricks Accelerator Program · <span class="f-accent">Data Management &amp; Analytics Practice</span></p>
   <p style="margin-top:8px; font-size:11.5px; color:#475569;">Prototype-phase summary. Confirm catalog paths and metrics against the live repo before external sharing.</p>
 </footer>
 
