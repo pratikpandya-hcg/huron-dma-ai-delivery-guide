@@ -1,200 +1,288 @@
 <!DOCTYPE html>
-<!-- Designer note: compact long-scroll report; tight sections with print page-breaks. ~5 min read. -->
+<!-- Designer note: compact long-scroll report; tight sections with print page-breaks. ~5 min read. Light theme. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI-Assisted Data Management Delivery — Huron DMA</title>
   <style>
+    /* ── Light theme tokens ── */
     :root {
-      --bg: #07111f; --surface: #0d1b2e; --surface2: #122238;
-      --border: #1c2f48; --border2: #243a57;
-      --accent: #3b82f6; --indigo: #6366f1; --green: #10b981;
-      --amber: #f59e0b; --red: #ef4444; --purple: #a855f7;
-      --text: #d8e5f3; --muted: #7b96b5; --heading: #eef4fd;
+      --bg:      #ffffff;
+      --surface: #f8fafc;
+      --surface2:#f1f5f9;
+      --surface3:#e8f0fe;
+      --border:  #e2e8f0;
+      --border2: #cbd5e1;
+      --accent:  #2563eb;
+      --indigo:  #4f46e5;
+      --green:   #059669;
+      --amber:   #d97706;
+      --red:     #dc2626;
+      --purple:  #7c3aed;
+      --text:    #334155;
+      --muted:   #64748b;
+      --heading: #0f172a;
+      --huron:   #F26522;
+      --huron-dk:#c9521a;
+      --shadow:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.65; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
     a { color: var(--accent); text-decoration: none; }
 
-    nav { background: rgba(7,17,31,.97); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 200; padding: 0 28px; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; height: 48px; gap: 14px; }
-    .nav-brand { font-size: 12px; font-weight: 800; color: var(--heading); white-space: nowrap; }
-    .nav-div { width: 1px; height: 16px; background: var(--border2); flex-shrink: 0; }
-    .nav-links { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
-    .nav-links a { color: var(--muted); font-size: 12px; padding: 4px 10px; border-radius: 5px; white-space: nowrap; transition: color .15s, background .15s; }
-    .nav-links a:hover { color: var(--heading); background: rgba(255,255,255,.06); }
+    /* ── Nav ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 200;
+      padding: 0 28px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; height: 54px; gap: 16px; }
+    .nav-logo { display: flex; align-items: center; gap: 0; flex-shrink: 0; }
+    .nav-div { width: 1px; height: 20px; background: var(--border2); flex-shrink: 0; }
+    .nav-sub { font-size: 11.5px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .nav-links { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { color: var(--muted); font-size: 12.5px; padding: 5px 11px; border-radius: 6px; white-space: nowrap; font-weight: 500; transition: color .15s, background .15s; }
+    .nav-links a:hover { color: var(--heading); background: var(--surface); }
+    .nav-links a.cta { color: var(--huron); font-weight: 700; }
+    .nav-links a.cta:hover { background: rgba(242,101,34,.08); }
 
-    /* Hero */
-    .hero { background: linear-gradient(155deg, #04101f 0%, #0b1d38 55%, #071628 100%); border-bottom: 1px solid var(--border); padding: 52px 28px 44px; text-align: center; position: relative; overflow: hidden; }
-    .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(59,130,246,.08) 0%, transparent 70%); pointer-events:none; }
-    .hero::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background: linear-gradient(90deg,transparent,var(--accent),var(--green),transparent); }
-    .eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-    .eyebrow span { color: var(--accent); }
-    .hero h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 900; color: var(--heading); letter-spacing: -.03em; line-height: 1.1; max-width: 780px; margin: 0 auto 12px; }
-    .hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), var(--indigo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-sub { color: var(--muted); max-width: 560px; margin: 0 auto 32px; font-size: 14.5px; }
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(160deg, #f0f7ff 0%, #fafbff 50%, #fff8f5 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 28px 48px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(37,99,235,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--huron), var(--accent), transparent);
+    }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .eyebrow span { color: var(--huron); }
+    .hero h1 { font-size: clamp(26px, 4.5vw, 44px); font-weight: 800; color: var(--heading); letter-spacing: -.03em; line-height: 1.1; max-width: 800px; margin: 0 auto 14px; }
+    .hero h1 em { font-style: normal; color: var(--huron); }
+    .hero-sub { color: var(--muted); max-width: 600px; margin: 0 auto 28px; font-size: 15px; line-height: 1.65; }
 
-    /* Flow diagram */
+    /* ── Flow diagram ── */
     .flow-wrap { display: flex; justify-content: center; overflow-x: auto; padding-bottom: 4px; }
-    .flow { display: flex; align-items: center; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 14px; padding: 14px 20px; gap: 0; }
-    .fn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 10px 14px; min-width: 96px; text-align: center; }
+    .flow { display: flex; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 20px; gap: 0; box-shadow: var(--shadow); }
+    .fn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; min-width: 96px; text-align: center; }
     .fn-icon { font-size: 18px; }
     .fn-label { font-size: 10.5px; font-weight: 700; color: var(--heading); }
     .fn-sub { font-size: 9.5px; color: var(--muted); }
-    .fa { font-size: 16px; color: var(--muted); padding: 0 8px; flex-shrink: 0; }
+    .fa { font-size: 16px; color: var(--border2); padding: 0 8px; flex-shrink: 0; }
 
-    /* Page */
+    /* ── Page ── */
     .page { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
-
     section.slide { padding: 44px 0; border-bottom: 1px solid var(--border); }
     section.slide:last-child { border-bottom: none; }
     @media print { section.slide { page-break-after: always; } }
 
-    .sec-label { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    h2 { font-size: clamp(19px, 3vw, 28px); font-weight: 800; color: var(--heading); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 10px; }
-    h2 em { font-style: normal; color: var(--accent); }
+    .sec-label { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    h2 { font-size: clamp(20px, 3vw, 30px); font-weight: 800; color: var(--heading); letter-spacing: -.025em; line-height: 1.15; margin-bottom: 10px; }
+    h2 em { font-style: normal; color: var(--huron); }
     h3 { font-size: 14px; font-weight: 700; color: var(--heading); margin: 20px 0 8px; }
-    .lead { color: var(--muted); font-size: 13.5px; max-width: 760px; margin-bottom: 24px; }
+    .lead { color: var(--muted); font-size: 14px; max-width: 780px; margin-bottom: 24px; line-height: 1.7; }
 
-    /* Grid */
+    /* ── Grids ── */
     .g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
     .g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
     .g4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 
-    /* Card */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    /* ── Cards ── */
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); transition: box-shadow .2s; }
+    .card:hover { box-shadow: var(--shadow-md); }
     .card.b { border-top: 3px solid var(--accent); }
     .card.g { border-top: 3px solid var(--green); }
     .card.i { border-top: 3px solid var(--indigo); }
     .card.a { border-top: 3px solid var(--amber); }
     .card.p { border-top: 3px solid var(--purple); }
     .card.r { border-top: 3px solid var(--red); }
+    .card.o { border-top: 3px solid var(--huron); }
     .card h3 { margin-top: 0; font-size: 13.5px; }
-    .card p, .card li { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
-    .card ul { padding-left: 14px; margin-top: 6px; }
-    .card li { margin-bottom: 3px; }
-    .ci { font-size: 20px; margin-bottom: 8px; }
+    .card p, .card li { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .card ul { padding-left: 15px; margin-top: 6px; }
+    .card li { margin-bottom: 4px; }
+    .ci { font-size: 22px; margin-bottom: 8px; }
 
-    /* Stats */
+    /* ── Stats ── */
     .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-    .stat { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 14px 18px; flex: 1; min-width: 110px; text-align: center; }
-    .sv { font-size: 26px; font-weight: 900; color: var(--heading); letter-spacing: -.03em; line-height: 1.1; }
-    .sv.b { color: var(--accent); } .sv.g { color: var(--green); } .sv.a { color: var(--amber); } .sv.i { color: var(--indigo); }
-    .sl { font-size: 10.5px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+    .stat { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; flex: 1; min-width: 110px; text-align: center; box-shadow: var(--shadow); }
+    .sv { font-size: 28px; font-weight: 800; color: var(--heading); letter-spacing: -.03em; line-height: 1.1; }
+    .sv.b { color: var(--accent); } .sv.g { color: var(--green); } .sv.a { color: var(--amber); } .sv.i { color: var(--indigo); } .sv.o { color: var(--huron); }
+    .sl { font-size: 11px; color: var(--muted); margin-top: 3px; font-weight: 600; }
 
-    /* Medallion */
-    .medallion { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
-    .ms { flex: 1; padding: 16px 14px; text-align: center; }
+    /* ── Medallion ── */
+    .medallion { display: flex; background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: var(--shadow); }
+    .ms { flex: 1; padding: 18px 16px; text-align: center; }
     .ms + .ms { border-left: 1px solid var(--border); }
-    .ms.bz { background: rgba(180,83,9,.1); } .ms.sv { background: rgba(100,116,139,.1); } .ms.gd { background: rgba(245,158,11,.08); }
-    .ms-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
-    .ms.bz .ms-lbl { color: #d97706; } .ms.sv .ms-lbl { color: #94a3b8; } .ms.gd .ms-lbl { color: #f59e0b; }
-    .ms-title { font-size: 12.5px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
-    .ms-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+    .ms.bz { background: #fff7ed; }
+    .ms.sv { background: #f8fafc; }
+    .ms.gd { background: #fffbeb; }
+    .ms-lbl { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 5px; }
+    .ms.bz .ms-lbl { color: #c2410c; }
+    .ms.sv .ms-lbl { color: #475569; }
+    .ms.gd .ms-lbl { color: #b45309; }
+    .ms-title { font-size: 13px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .ms-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    /* Pipeline (numbered) */
+    /* ── Pipeline ── */
     .pipe { display: flex; flex-direction: column; gap: 0; }
     .ps { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 20px; position: relative; }
     .ps:last-child { padding-bottom: 0; }
-    .ps:not(:last-child)::after { content:''; position:absolute; left:16px; top:34px; bottom:0; width:2px; background: var(--border2); }
+    .ps:not(:last-child)::after { content:''; position:absolute; left:16px; top:34px; bottom:0; width:2px; background: var(--border); }
     .pn { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; z-index:1; }
-    .pn.b { background:rgba(59,130,246,.18); color:var(--accent); border:2px solid rgba(59,130,246,.3); }
-    .pn.g { background:rgba(16,185,129,.18); color:var(--green); border:2px solid rgba(16,185,129,.3); }
-    .pn.i { background:rgba(99,102,241,.18); color:var(--indigo); border:2px solid rgba(99,102,241,.3); }
-    .pn.a { background:rgba(245,158,11,.18); color:var(--amber); border:2px solid rgba(245,158,11,.3); }
-    .pn.p { background:rgba(168,85,247,.18); color:var(--purple); border:2px solid rgba(168,85,247,.3); }
-    .pn.r { background:rgba(239,68,68,.18); color:var(--red); border:2px solid rgba(239,68,68,.3); }
+    .pn.b { background:#dbeafe; color:#1d4ed8; border:2px solid #bfdbfe; }
+    .pn.g { background:#d1fae5; color:#065f46; border:2px solid #a7f3d0; }
+    .pn.i { background:#e0e7ff; color:#3730a3; border:2px solid #c7d2fe; }
+    .pn.a { background:#fef3c7; color:#92400e; border:2px solid #fde68a; }
+    .pn.p { background:#ede9fe; color:#5b21b6; border:2px solid #ddd6fe; }
+    .pn.r { background:#fee2e2; color:#991b1b; border:2px solid #fecaca; }
+    .pn.o { background:#fff0e8; color:#c2410c; border:2px solid #fed7aa; }
     .pb { flex:1; padding-top: 6px; }
     .pb h3 { margin:0 0 4px; font-size: 13.5px; }
-    .pb p { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+    .pb p { font-size: 13px; color: var(--muted); line-height: 1.65; }
     .tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:7px; }
-    .tag { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
-    .tag.b { background:rgba(59,130,246,.15); color:#93c5fd; }
-    .tag.g { background:rgba(16,185,129,.15); color:#6ee7b7; }
-    .tag.a { background:rgba(245,158,11,.15); color:#fcd34d; }
-    .tag.i { background:rgba(99,102,241,.15); color:#c7d2fe; }
-    .tag.r { background:rgba(239,68,68,.15); color:#fca5a5; }
-    .tag.gr { background:rgba(148,163,184,.1); color:var(--muted); }
+    .tag { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; display: inline-block; }
+    .tag.b { background:#dbeafe; color:#1e40af; }
+    .tag.g { background:#d1fae5; color:#065f46; }
+    .tag.a { background:#fef3c7; color:#92400e; }
+    .tag.i { background:#e0e7ff; color:#3730a3; }
+    .tag.r { background:#fee2e2; color:#991b1b; }
+    .tag.o { background:#fff0e8; color:#c2410c; }
+    .tag.gr{ background:#f1f5f9; color:var(--muted); }
 
-    /* Tables */
-    table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:10px; }
-    th { text-align:left; padding:8px 12px; background:var(--surface2); border-bottom:1px solid var(--border); color:var(--muted); font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
-    td { padding:8px 12px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top; }
+    /* ── Tables ── */
+    table { width:100%; border-collapse:collapse; font-size:13px; margin-top:10px; }
+    th { text-align:left; padding:9px 13px; background:var(--surface); border-bottom:2px solid var(--border); color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+    td { padding:9px 13px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top; }
     tr:last-child td { border-bottom:none; }
-    tr:hover td { background:rgba(255,255,255,.02); }
-    code { font-size:11px; background:rgba(255,255,255,.07); padding:1px 5px; border-radius:4px; font-family:'Cascadia Code','Consolas',monospace; }
+    tr:hover td { background:var(--surface); }
+    code { font-size:11.5px; background:var(--surface2); color:#b45309; padding:2px 6px; border-radius:4px; font-family:'Cascadia Code','Fira Code','Consolas',monospace; border: 1px solid var(--border); }
 
-    /* Callout */
-    .callout { border-radius:10px; padding:12px 16px; display:flex; gap:12px; align-items:flex-start; margin:16px 0; }
-    .callout.info    { background:rgba(59,130,246,.07);  border:1px solid rgba(59,130,246,.2); }
-    .callout.warn    { background:rgba(245,158,11,.07);  border:1px solid rgba(245,158,11,.2); }
-    .callout.success { background:rgba(16,185,129,.07);  border:1px solid rgba(16,185,129,.2); }
+    /* ── Callouts ── */
+    .callout { border-radius:10px; padding:13px 17px; display:flex; gap:12px; align-items:flex-start; margin:16px 0; }
+    .callout.info    { background:#eff6ff; border:1px solid #bfdbfe; }
+    .callout.warn    { background:#fffbeb; border:1px solid #fde68a; }
+    .callout.success { background:#f0fdf4; border:1px solid #bbf7d0; }
+    .callout.danger  { background:#fef2f2; border:1px solid #fecaca; }
     .c-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
-    .c-title { font-size:12.5px; font-weight:700; color:var(--heading); margin-bottom:3px; }
-    .c-text  { font-size:12px; color:var(--muted); line-height:1.6; }
+    .c-title { font-size:13px; font-weight:700; color:var(--heading); margin-bottom:3px; }
+    .c-text  { font-size:12.5px; color:var(--muted); line-height:1.65; }
 
-    /* Effort bars */
+    /* ── Effort bars ── */
     .eff { margin-bottom:14px; }
-    .eff-lbl { display:flex; justify-content:space-between; margin-bottom:5px; font-size:12.5px; }
-    .eff-bg { height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; }
-    .eff-bar { height:100%; border-radius:4px; }
+    .eff-lbl { display:flex; justify-content:space-between; margin-bottom:5px; font-size:13px; font-weight:500; }
+    .eff-bg { height:10px; background:var(--surface2); border-radius:5px; overflow:hidden; }
+    .eff-bar { height:100%; border-radius:5px; }
 
-    /* Comparison table colours */
-    .manual { color:#fca5a5; }
-    .ai-col  { color:#6ee7b7; }
+    /* ── Comparison table ── */
+    .manual { color: #dc2626; font-weight: 500; }
+    .ai-col  { color: #059669; font-weight: 500; }
 
-    /* 3-way sync visual */
-    .sync-row { display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center; padding:16px 0; }
+    /* ── 3-way sync ── */
+    .sync-row { display:flex; gap:20px; align-items:center; flex-wrap:wrap; justify-content:center; padding:18px 0; }
     .sync-node { text-align:center; }
-    .sync-node .sn-icon { font-size:24px; margin-bottom:5px; }
-    .sync-node .sn-title { font-size:12.5px; font-weight:700; color:var(--heading); }
-    .sync-node .sn-sub { font-size:11px; color:var(--muted); }
-    .sync-arrow { font-size:18px; color:var(--muted); }
+    .sync-node .sn-icon { font-size:26px; margin-bottom:6px; }
+    .sync-node .sn-title { font-size:13px; font-weight:700; color:var(--heading); }
+    .sync-node .sn-sub { font-size:11.5px; color:var(--muted); }
+    .sync-arrow { font-size:20px; color:var(--border2); }
 
-    /* Pre-sales: problem band */
+    /* ── Problem band ── */
     .prob-band { background: var(--surface); border-bottom: 1px solid var(--border); padding: 32px 28px; }
     .prob-inner { max-width: 1100px; margin: 0 auto; }
-    .prob-label { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; text-align: center; }
+    .prob-label { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; text-align: center; }
     .prob-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-    .prob-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 18px; }
-    .prob-q { font-size: 12.5px; font-weight: 700; color: #fca5a5; margin-bottom: 6px; }
-    .prob-a { font-size: 12.5px; color: #6ee7b7; font-weight: 600; }
-    .prob-desc { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.55; }
+    .prob-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; box-shadow: var(--shadow); }
+    .prob-q { font-size: 12.5px; font-weight: 600; color: #dc2626; margin-bottom: 6px; }
+    .prob-a { font-size: 12.5px; color: #065f46; font-weight: 700; margin-bottom: 5px; }
+    .prob-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    /* Pre-sales: deliverables & CTA */
-    .deliv-section { padding: 44px 0; border-top: 1px solid var(--border); }
-    .cta-band { background: linear-gradient(135deg, rgba(59,130,246,.12) 0%, rgba(99,102,241,.12) 50%, rgba(16,185,129,.08) 100%); border: 1px solid rgba(59,130,246,.25); border-radius: 16px; padding: 36px 32px; text-align: center; margin-top: 32px; }
-    .cta-band h3 { font-size: clamp(18px, 2.5vw, 24px); font-weight: 800; color: var(--heading); margin-bottom: 8px; letter-spacing: -.02em; }
-    .cta-band p { font-size: 13.5px; color: var(--muted); max-width: 560px; margin: 0 auto 20px; }
+    /* ── Deliverables & CTA ── */
+    .deliv-section { padding: 44px 0; border-top: 2px solid var(--border); }
+    .cta-band {
+      background: linear-gradient(135deg, #fff8f5 0%, #f0f7ff 50%, #f0fdf4 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 40px 36px;
+      text-align: center; margin-top: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .cta-band h3 { font-size: clamp(18px, 2.5vw, 24px); font-weight: 800; color: var(--heading); margin-bottom: 10px; letter-spacing: -.02em; }
+    .cta-band p { font-size: 14px; color: var(--muted); max-width: 580px; margin: 0 auto 22px; line-height: 1.7; }
     .cta-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .cta-pill { font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 8px; cursor: pointer; }
-    .cta-pill.primary { background: var(--accent); color: #fff; }
-    .cta-pill.secondary { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .cta-pill { font-size: 13.5px; font-weight: 700; padding: 11px 26px; border-radius: 8px; cursor: pointer; transition: opacity .15s; }
+    .cta-pill:hover { opacity: .88; }
+    .cta-pill.primary { background: var(--huron); color: #fff; }
+    .cta-pill.secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
 
-    /* Why Huron */
+    /* ── Why Huron ── */
     .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
-    .why-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 18px; }
+    .why-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; transition: box-shadow .2s; }
+    .why-card:hover { box-shadow: var(--shadow-md); background: #fff; }
     .why-card .wc-icon { font-size: 20px; margin-bottom: 8px; }
     .why-card h3 { font-size: 13px; margin-bottom: 5px; }
-    .why-card p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .why-card p { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
-    footer { background:var(--surface); border-top:1px solid var(--border); padding:24px 28px; text-align:center; color:var(--muted); font-size:12px; }
+    /* ── Footer ── */
+    footer { background: var(--heading); border-top: 1px solid var(--border); padding: 28px; text-align: center; }
+    footer .f-logo { margin-bottom: 10px; }
+    footer p { color: #94a3b8; font-size: 12.5px; line-height: 1.7; }
+    footer .f-accent { color: #fb923c; }
 
+    /* ── Print ── */
+    @media print {
+      nav { display: none; }
+      .hero { background: #f0f7ff; }
+      section.slide { page-break-after: always; }
+    }
+
+    /* ── Responsive ── */
     @media(max-width:640px){
       .flow { flex-direction:column; } .fa { transform:rotate(90deg); }
       .medallion { flex-direction:column; } .ms+.ms { border-left:none; border-top:1px solid var(--border); }
-      .page { padding:0 14px; }
+      .page { padding:0 16px; }
+      .prob-band { padding:24px 16px; }
     }
   </style>
 </head>
 <body>
 
+<!-- ═══════════ NAV ═══════════ -->
 <nav>
   <div class="nav-inner">
-    <span class="nav-brand">Huron · DMA · Customer360</span>
+    <!-- Huron logo SVG wordmark -->
+    <div class="nav-logo">
+      <svg width="108" height="32" viewBox="0 0 108 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Huron Consulting Group">
+        <!-- Icon mark: two interlocking angular bars suggesting data layers -->
+        <rect x="0" y="6" width="7" height="20" rx="1.5" fill="#F26522"/>
+        <rect x="9" y="0" width="7" height="26" rx="1.5" fill="#F26522" opacity=".75"/>
+        <rect x="18" y="10" width="7" height="16" rx="1.5" fill="#F26522" opacity=".5"/>
+        <!-- Wordmark -->
+        <text x="30" y="22" font-family="'Segoe UI',system-ui,sans-serif" font-size="17" font-weight="800" fill="#0f172a" letter-spacing=".5">HURON</text>
+      </svg>
+    </div>
     <div class="nav-div"></div>
+    <span class="nav-sub">Data Management &amp; Analytics</span>
     <div class="nav-links">
       <a href="#foundation">Data Foundation</a>
       <a href="#design">AI Design</a>
@@ -202,17 +290,18 @@
       <a href="#review">Code Review</a>
       <a href="#factory">Test Factory</a>
       <a href="#outcomes">Outcomes</a>
-      <a href="#deliv" style="color:var(--green);">What You Get ↗</a>
+      <a href="#deliv" class="cta">What You Get ↗</a>
     </div>
   </div>
 </nav>
 
+<!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
   <div class="eyebrow">Huron Consulting Group · Data Management &amp; Analytics · <span>Customer360 Prototype Program</span></div>
   <h1><em>AI-Assisted</em> Data Management Delivery</h1>
   <p class="hero-sub">Huron's proven accelerator for Databricks-based Customer360 programs — cuts test cycle effort by ~80%, eliminates manual defect logging, and ships governed data pipelines faster with built-in AI guardrails.</p>
   <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;">
-    <span class="tag b" style="font-size:12px; padding:5px 13px;">~80% effort reduction</span>
+    <span class="tag o" style="font-size:12px; padding:5px 13px;">~80% effort reduction</span>
     <span class="tag g" style="font-size:12px; padding:5px 13px;">Repeatable across engagements</span>
     <span class="tag i" style="font-size:12px; padding:5px 13px;">Zero tribal knowledge dependency</span>
     <span class="tag a" style="font-size:12px; padding:5px 13px;">Governed · Traceable · Auditable</span>
@@ -234,7 +323,7 @@
   </div>
 </header>
 
-<!-- PROBLEM BAND -->
+<!-- ═══════════ PROBLEM BAND ═══════════ -->
 <div class="prob-band">
   <div class="prob-inner">
     <div class="prob-label">The challenge we solve</div>
@@ -344,7 +433,7 @@
       <span class="sync-arrow">⇆</span>
       <div class="sync-node"><div class="sn-icon">🔷</div><div class="sn-title">Databricks Git Folder</div><div class="sn-sub">Repo-backed notebooks</div></div>
     </div>
-    <p style="font-size:12px; color:var(--muted); text-align:center; border-top:1px solid var(--border); padding-top:12px; margin-top:4px;">All three surfaces share one commit history. No separate tooling layer.</p>
+    <p style="font-size:12.5px; color:var(--muted); text-align:center; border-top:1px solid var(--border); padding-top:12px; margin-top:4px;">All three surfaces share one commit history. No separate tooling layer.</p>
   </div>
 </section>
 
@@ -448,10 +537,10 @@
   <p class="lead">The Test Factory is a client-facing deliverable, not an internal tool. Hand it over at the end of an engagement and the client's team runs the same 77-scenario regression independently — with automatic defect logging, traceability, and Excel workbooks already populated. No Huron resource required to re-run it.</p>
 
   <div class="stats">
-    <div class="stat"><div class="sv b">77</div><div class="sl">Test scenarios</div></div>
+    <div class="stat"><div class="sv o">77</div><div class="sl">Test scenarios</div></div>
     <div class="stat"><div class="sv g">4</div><div class="sl">Validation scripts</div></div>
     <div class="stat"><div class="sv a">6</div><div class="sl">Excel workbooks</div></div>
-    <div class="stat"><div class="sv i">~10</div><div class="sl">MD saved / cycle</div></div>
+    <div class="stat"><div class="sv b">~10</div><div class="sl">MD saved / cycle</div></div>
   </div>
 
   <div class="g2">
@@ -484,7 +573,7 @@
       <h3 style="margin-top:20px;">Human-in-the-Loop (HIL)</h3>
       <div class="g2" style="gap:8px;">
         <div class="card a" style="padding:12px 14px;"><h3 style="font-size:12.5px;">FP/FN Review</h3><p>AI flags; engineer confirms whether logic or expectation needs updating.</p></div>
-        <div class="card r" style="padding:12px 14px;"><h3 style="font-size:12.5px;">Production Changes</h3><p>No factory result triggers a prod change automatically — explicit sign-off required.</p></div>
+        <div class="card r" style="padding:12px 14px;"><h3 style="font-size:12.5px;">Production Changes</h3><p>No factory result triggers a prod change — explicit sign-off required.</p></div>
         <div class="card i" style="padding:12px 14px;"><h3 style="font-size:12.5px;">Threshold Tuning</h3><p>Factory surfaces boundary behaviour; domain expert decides on changes.</p></div>
         <div class="card b" style="padding:12px 14px;"><h3 style="font-size:12.5px;">Defect Triage</h3><p>Auto-created bugs need human triage before moving to In Progress.</p></div>
       </div>
@@ -502,22 +591,22 @@
     <div>
       <h3>Effort per Test Cycle</h3>
       <div class="eff">
-        <div class="eff-lbl"><span style="color:var(--muted);">Manual approach</span><span style="color:#fca5a5; font-weight:700;">~12.5 MD <span style="font-size:10.5px; color:var(--muted);">(range 10.5–14.5)</span></span></div>
-        <div class="eff-bg"><div class="eff-bar" style="width:100%; background:linear-gradient(90deg,#7f1d1d,#ef4444);"></div></div>
+        <div class="eff-lbl"><span style="color:var(--muted);">Manual approach</span><span style="color:#dc2626; font-weight:700;">~12.5 MD <span style="font-size:11px; font-weight:400; color:var(--muted);">(range 10.5–14.5)</span></span></div>
+        <div class="eff-bg"><div class="eff-bar" style="width:100%; background:linear-gradient(90deg,#fca5a5,#dc2626);"></div></div>
       </div>
       <div class="eff">
-        <div class="eff-lbl"><span style="color:var(--muted);">AI Test Factory</span><span style="color:#6ee7b7; font-weight:700;">~2.5 MD <span style="font-size:10.5px; color:var(--muted);">(range 2–3)</span></span></div>
-        <div class="eff-bg"><div class="eff-bar" style="width:20%; background:linear-gradient(90deg,#064e3b,#10b981);"></div></div>
+        <div class="eff-lbl"><span style="color:var(--muted);">AI Test Factory</span><span style="color:#059669; font-weight:700;">~2.5 MD <span style="font-size:11px; font-weight:400; color:var(--muted);">(range 2–3)</span></span></div>
+        <div class="eff-bg"><div class="eff-bar" style="width:20%; background:linear-gradient(90deg,#6ee7b7,#059669);"></div></div>
       </div>
       <div class="callout success">
         <span class="c-icon">💚</span>
-        <div><div class="c-title">~10 MD saved per cycle</div><div class="c-text">Across 3–4 cycles per program: 30–40 MD redirected to feature work.</div></div>
+        <div><div class="c-title">~10 MD saved per cycle</div><div class="c-text">Across 3–4 cycles per program: 30–40 MD redirected to feature work. At $1,500/MD blended rate → <strong>$45–60K per engagement</strong>.</div></div>
       </div>
     </div>
     <div>
       <h3>Quality Comparison</h3>
       <table>
-        <thead><tr><th>Dimension</th><th class="manual">Manual</th><th class="ai-col">AI Factory</th></tr></thead>
+        <thead><tr><th>Dimension</th><th>Manual</th><th>AI Factory</th></tr></thead>
         <tbody>
           <tr><td>Scenario coverage</td><td class="manual">Ad hoc</td><td class="ai-col">77 structured, consistent</td></tr>
           <tr><td>Traceability</td><td class="manual">Manual spreadsheet</td><td class="ai-col">Auto-synced</td></tr>
@@ -530,7 +619,7 @@
   </div>
 
   <div class="g4">
-    <div class="card b"><div class="ci">⚡</div><h3>Velocity</h3><p>MCP catalog awareness + job runner automation eliminates manual plumbing from blank UC to running tests.</p></div>
+    <div class="card o"><div class="ci">⚡</div><h3>Velocity</h3><p>MCP catalog awareness + job runner automation eliminates manual plumbing from blank UC to running tests.</p></div>
     <div class="card g"><div class="ci">🏛️</div><h3>Governance</h3><p>UC-aligned paths, single-catalog scope, safety rules, and auto-traced defects — structural quality, not individual diligence.</p></div>
     <div class="card i"><div class="ci">♻️</div><h3>Reusability</h3><p>Clone one repo, merge MCP config, run the same prompts. No tribal knowledge. No shadow tooling.</p></div>
     <div class="card a"><div class="ci">🤝</div><h3>Honest Limits</h3><p>Production changes, destructive SQL, threshold tuning, and defect triage remain human decisions — always.</p></div>
@@ -542,7 +631,9 @@
   </div>
 </section>
 
-<!-- WHAT YOU RECEIVE + WHY HURON + CTA -->
+</div><!-- /page -->
+
+<!-- ═══════════ DELIVERABLES + WHY HURON + CTA ═══════════ -->
 <div class="deliv-section page" id="deliv">
   <div class="sec-label">📦 Engagement Deliverables</div>
   <h2>What <em>You Receive</em></h2>
@@ -599,7 +690,7 @@
         <li>SONIC-style ingest pipeline</li>
       </ul>
     </div>
-    <div class="card g" style="border-top-color:var(--green);">
+    <div class="card o">
       <div class="ci">📊</div>
       <h3>Metrics &amp; Evidence</h3>
       <ul>
@@ -653,14 +744,23 @@
       <span class="cta-pill primary">Request a Demo</span>
       <span class="cta-pill secondary">Download the Runbook</span>
     </div>
-    <p style="font-size:11.5px; color:var(--muted); margin-top:16px; margin-bottom:0;">Contact your Huron DMA account team · <span style="color:var(--accent);">Data Management &amp; Analytics Practice</span></p>
+    <p style="font-size:12px; color:var(--muted); margin-top:16px; margin-bottom:0;">Contact your Huron DMA account team · <strong style="color:var(--huron);">Data Management &amp; Analytics Practice</strong></p>
   </div>
 </div>
 
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  <p style="font-weight:700; color:var(--text); margin-bottom:4px;">Huron Consulting Group · Data Management &amp; Analytics</p>
-  <p>Customer360 Databricks Prototype Program · <span style="color:var(--accent);">Huron-DMA-Org / Databricks_prototypes</span></p>
-  <p style="margin-top:8px; font-size:11px;">Prototype-phase summary. Confirm catalog paths and metrics against the live repo before external sharing.</p>
+  <div class="f-logo">
+    <svg width="90" height="26" viewBox="0 0 90 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="4" width="6" height="18" rx="1.5" fill="#F26522"/>
+      <rect x="8" y="0" width="6" height="22" rx="1.5" fill="#F26522" opacity=".7"/>
+      <rect x="16" y="8" width="6" height="14" rx="1.5" fill="#F26522" opacity=".45"/>
+      <text x="26" y="19" font-family="'Segoe UI',system-ui,sans-serif" font-size="15" font-weight="800" fill="#ffffff" letter-spacing=".4">HURON</text>
+    </svg>
+  </div>
+  <p>Consulting Group · Data Management &amp; Analytics</p>
+  <p>Customer360 Databricks Prototype Program · <span class="f-accent">Huron-DMA-Org / Databricks_prototypes</span></p>
+  <p style="margin-top:8px; font-size:11.5px; color:#475569;">Prototype-phase summary. Confirm catalog paths and metrics against the live repo before external sharing.</p>
 </footer>
 
 </body>
