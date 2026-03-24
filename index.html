@@ -6,27 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI-Assisted Data Management Delivery — Huron DMA</title>
   <style>
-    /* ── Light theme tokens ── */
+    /* ── Huron brand light theme ── */
     :root {
       --bg:      #ffffff;
-      --surface: #f8fafc;
-      --surface2:#f1f5f9;
-      --surface3:#e8f0fe;
-      --border:  #e2e8f0;
-      --border2: #cbd5e1;
-      --accent:  #2563eb;
-      --indigo:  #4f46e5;
-      --green:   #059669;
-      --amber:   #d97706;
-      --red:     #dc2626;
-      --purple:  #7c3aed;
-      --text:    #334155;
-      --muted:   #64748b;
-      --heading: #0f172a;
-      --huron:   #F26522;
-      --huron-dk:#c9521a;
+      --surface: #f4f4f4;
+      --surface2:#ebebeb;
+      --surface3:#e0eef6;
+      --border:  #dde3e8;
+      --border2: #c4cdd6;
+      --accent:  #00558c;
+      --indigo:  #005073;
+      --green:   #1a7a4a;
+      --amber:   #b45309;
+      --red:     #c0392b;
+      --purple:  #5c3d8f;
+      --text:    #2d2d2d;
+      --muted:   #5a6672;
+      --heading: #1a1a1a;
+      --huron:   #00558c;
+      --huron-dk:#003f6e;
+      --huron-lt:#e0eef6;
       --shadow:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
-      --shadow-md:0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,.1), 0 2px 4px rgba(0,0,0,.05);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -61,7 +62,7 @@
 
     /* ── Hero ── */
     .hero {
-      background: linear-gradient(160deg, #f0f7ff 0%, #fafbff 50%, #fff8f5 100%);
+      background: linear-gradient(160deg, #e8f2f9 0%, #f4f8fc 50%, #ffffff 100%);
       border-bottom: 1px solid var(--border);
       padding: 56px 28px 48px;
       text-align: center;
@@ -70,12 +71,12 @@
     .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(37,99,235,.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,85,140,.06) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--huron), var(--accent), transparent);
+      background: linear-gradient(90deg, transparent, var(--huron), #1a7a4a, transparent);
     }
     .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
     .eyebrow span { color: var(--huron); }
@@ -221,7 +222,7 @@
     /* ── Deliverables & CTA ── */
     .deliv-section { padding: 44px 0; border-top: 2px solid var(--border); }
     .cta-band {
-      background: linear-gradient(135deg, #fff8f5 0%, #f0f7ff 50%, #f0fdf4 100%);
+      background: linear-gradient(135deg, #e8f2f9 0%, #f4f8fc 60%, #edf7f2 100%);
       border: 1px solid var(--border);
       border-radius: 16px; padding: 40px 36px;
       text-align: center; margin-top: 32px;
@@ -244,10 +245,10 @@
     .why-card p { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
     /* ── Footer ── */
-    footer { background: var(--heading); border-top: 1px solid var(--border); padding: 28px; text-align: center; }
+    footer { background: #003f6e; border-top: 1px solid #002f54; padding: 28px; text-align: center; }
     footer .f-logo { margin-bottom: 10px; }
-    footer p { color: #94a3b8; font-size: 12.5px; line-height: 1.7; }
-    footer .f-accent { color: #fb923c; }
+    footer p { color: #a8c8e0; font-size: 12.5px; line-height: 1.7; }
+    footer .f-accent { color: #7ec8e3; }
 
     /* ── Print ── */
     @media print {
@@ -272,13 +273,13 @@
   <div class="nav-inner">
     <!-- Huron logo SVG wordmark -->
     <div class="nav-logo">
-      <svg width="108" height="32" viewBox="0 0 108 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Huron Consulting Group">
-        <!-- Icon mark: two interlocking angular bars suggesting data layers -->
-        <rect x="0" y="6" width="7" height="20" rx="1.5" fill="#F26522"/>
-        <rect x="9" y="0" width="7" height="26" rx="1.5" fill="#F26522" opacity=".75"/>
-        <rect x="18" y="10" width="7" height="16" rx="1.5" fill="#F26522" opacity=".5"/>
+      <svg width="116" height="32" viewBox="0 0 116 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Huron Consulting Group">
+        <!-- Icon mark: three data-layer bars in Huron blue -->
+        <rect x="0" y="6" width="7" height="20" rx="1.5" fill="#00558c"/>
+        <rect x="9" y="0" width="7" height="26" rx="1.5" fill="#00558c" opacity=".65"/>
+        <rect x="18" y="10" width="7" height="16" rx="1.5" fill="#00558c" opacity=".38"/>
         <!-- Wordmark -->
-        <text x="30" y="22" font-family="'Segoe UI',system-ui,sans-serif" font-size="17" font-weight="800" fill="#0f172a" letter-spacing=".5">HURON</text>
+        <text x="30" y="22" font-family="'Segoe UI',system-ui,sans-serif" font-size="17" font-weight="800" fill="#00558c" letter-spacing=".5">HURON</text>
       </svg>
     </div>
     <div class="nav-div"></div>
@@ -743,10 +744,10 @@
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="f-logo">
-    <svg width="90" height="26" viewBox="0 0 90 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="4" width="6" height="18" rx="1.5" fill="#F26522"/>
-      <rect x="8" y="0" width="6" height="22" rx="1.5" fill="#F26522" opacity=".7"/>
-      <rect x="16" y="8" width="6" height="14" rx="1.5" fill="#F26522" opacity=".45"/>
+    <svg width="96" height="26" viewBox="0 0 96 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="4" width="6" height="18" rx="1.5" fill="#5ba8d4"/>
+      <rect x="8" y="0" width="6" height="22" rx="1.5" fill="#5ba8d4" opacity=".7"/>
+      <rect x="16" y="8" width="6" height="14" rx="1.5" fill="#5ba8d4" opacity=".45"/>
       <text x="26" y="19" font-family="'Segoe UI',system-ui,sans-serif" font-size="15" font-weight="800" fill="#ffffff" letter-spacing=".4">HURON</text>
     </svg>
   </div>
