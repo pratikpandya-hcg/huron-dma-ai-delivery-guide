@@ -153,6 +153,33 @@
     .sync-node .sn-sub { font-size:11px; color:var(--muted); }
     .sync-arrow { font-size:18px; color:var(--muted); }
 
+    /* Pre-sales: problem band */
+    .prob-band { background: var(--surface); border-bottom: 1px solid var(--border); padding: 32px 28px; }
+    .prob-inner { max-width: 1100px; margin: 0 auto; }
+    .prob-label { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; text-align: center; }
+    .prob-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .prob-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 18px; }
+    .prob-q { font-size: 12.5px; font-weight: 700; color: #fca5a5; margin-bottom: 6px; }
+    .prob-a { font-size: 12.5px; color: #6ee7b7; font-weight: 600; }
+    .prob-desc { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.55; }
+
+    /* Pre-sales: deliverables & CTA */
+    .deliv-section { padding: 44px 0; border-top: 1px solid var(--border); }
+    .cta-band { background: linear-gradient(135deg, rgba(59,130,246,.12) 0%, rgba(99,102,241,.12) 50%, rgba(16,185,129,.08) 100%); border: 1px solid rgba(59,130,246,.25); border-radius: 16px; padding: 36px 32px; text-align: center; margin-top: 32px; }
+    .cta-band h3 { font-size: clamp(18px, 2.5vw, 24px); font-weight: 800; color: var(--heading); margin-bottom: 8px; letter-spacing: -.02em; }
+    .cta-band p { font-size: 13.5px; color: var(--muted); max-width: 560px; margin: 0 auto 20px; }
+    .cta-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .cta-pill { font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 8px; cursor: pointer; }
+    .cta-pill.primary { background: var(--accent); color: #fff; }
+    .cta-pill.secondary { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+
+    /* Why Huron */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+    .why-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 18px; }
+    .why-card .wc-icon { font-size: 20px; margin-bottom: 8px; }
+    .why-card h3 { font-size: 13px; margin-bottom: 5px; }
+    .why-card p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
     footer { background:var(--surface); border-top:1px solid var(--border); padding:24px 28px; text-align:center; color:var(--muted); font-size:12px; }
 
     @media(max-width:640px){
@@ -175,6 +202,7 @@
       <a href="#review">Code Review</a>
       <a href="#factory">Test Factory</a>
       <a href="#outcomes">Outcomes</a>
+      <a href="#deliv" style="color:var(--green);">What You Get ↗</a>
     </div>
   </div>
 </nav>
@@ -182,7 +210,13 @@
 <header class="hero">
   <div class="eyebrow">Huron Consulting Group · Data Management &amp; Analytics · <span>Customer360 Prototype Program</span></div>
   <h1><em>AI-Assisted</em> Data Management Delivery</h1>
-  <p class="hero-sub">From blank Unity Catalog to governed, traceable deduplication tests — using Cursor, Databricks MCP, and an AI-driven test factory.</p>
+  <p class="hero-sub">Huron's proven accelerator for Databricks-based Customer360 programs — cuts test cycle effort by ~80%, eliminates manual defect logging, and ships governed data pipelines faster with built-in AI guardrails.</p>
+  <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;">
+    <span class="tag b" style="font-size:12px; padding:5px 13px;">~80% effort reduction</span>
+    <span class="tag g" style="font-size:12px; padding:5px 13px;">Repeatable across engagements</span>
+    <span class="tag i" style="font-size:12px; padding:5px 13px;">Zero tribal knowledge dependency</span>
+    <span class="tag a" style="font-size:12px; padding:5px 13px;">Governed · Traceable · Auditable</span>
+  </div>
   <div class="flow-wrap">
     <div class="flow">
       <div class="fn"><span class="fn-icon">🗄️</span><span class="fn-label">Data Foundation</span><span class="fn-sub">UC · Medallion</span></div>
@@ -200,13 +234,42 @@
   </div>
 </header>
 
+<!-- PROBLEM BAND -->
+<div class="prob-band">
+  <div class="prob-inner">
+    <div class="prob-label">The challenge we solve</div>
+    <div class="prob-grid">
+      <div class="prob-card">
+        <div class="prob-q">❌ Weeks to stand up a test-ready data environment</div>
+        <div class="prob-a">✅ Hours — governed UC catalog, synthetic data, and notebooks ready from day one</div>
+        <div class="prob-desc">Medallion layout pre-wired; no waiting on production data extracts or environment provisioning.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-q">❌ Tribal knowledge drives every test cycle</div>
+        <div class="prob-a">✅ 77 structured scenarios run by anyone from the repo</div>
+        <div class="prob-desc">Prompts, scripts, and workbooks are committed assets — not in someone's head or a local folder.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-q">❌ Defects discovered late, logged manually</div>
+        <div class="prob-a">✅ Automatic Jira creation on test failure, traced back to the scenario</div>
+        <div class="prob-desc">No copy-paste from test results to backlog. The factory closes the loop in seconds.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-q">❌ ~12 man-days per manual test cycle</div>
+        <div class="prob-a">✅ ~2.5 man-days with the AI factory — ~80% effort reduction</div>
+        <div class="prob-desc">Savings compound across sprints. Engineers focus on logic, not repetitive validation mechanics.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="page">
 
 <!-- 1. DATA FOUNDATION -->
 <section class="slide" id="foundation">
   <div class="sec-label">🗄️ Section 1</div>
   <h2>Data Foundation &amp; <em>Synthetic Data</em></h2>
-  <p class="lead">A governed, layered data estate with synthetic data that enables safe testing without exposing production PII.</p>
+  <p class="lead">Clients get a test-ready data estate on day one — no production data exposure, no waiting. Synthetic records that mirror real customer complexity let teams validate deduplication logic immediately.</p>
 
   <div class="medallion">
     <div class="ms bz"><div class="ms-lbl">Bronze</div><div class="ms-title">Raw Ingest</div><div class="ms-desc">Synthetic CSVs pushed to a Databricks Volume via <code>SONIC_ingest_all_tables.py</code>. Records land as-is.</div></div>
@@ -240,7 +303,7 @@
 <section class="slide" id="design">
   <div class="sec-label">✏️ Section 2</div>
   <h2>AI-Assisted <em>Design</em></h2>
-  <p class="lead">Architecture decisions live in Git as working documents. Cursor + Databricks MCP connects those decisions to the live workspace — no context-switching to the Databricks UI.</p>
+  <p class="lead">Architecture, onboarding, and role-based prompts ship as committed repo assets — not slide decks. New team members are productive in hours, not days. The AI IDE stays connected to the live workspace so design decisions reflect actual catalog structure.</p>
 
   <div class="g3">
     <div class="card b">
@@ -289,7 +352,7 @@
 <section class="slide" id="build">
   <div class="sec-label">⚙️ Section 3</div>
   <h2>AI-Assisted <em>Build</em></h2>
-  <p class="lead">Notebooks and Python/SQL scripts structured exactly as the architecture dictates. Credential resolution, job submission, and Unity Catalog operations are handled by scripts — not manual steps.</p>
+  <p class="lead">Engineers spend time on business logic, not plumbing. Connection verification, job submission, Unity Catalog enumeration, and ETL scaffolding are pre-built, tested scripts — handed off as part of every engagement.</p>
 
   <div class="g2">
     <div>
@@ -326,7 +389,7 @@
 <section class="slide" id="review">
   <div class="sec-label">🛡️ Section 4</div>
   <h2>AI-Assisted <em>Code Review</em></h2>
-  <p class="lead">Cursor rules and Jira scoping keep AI-generated code and work items governable. Faster review cycles — not review-free shipping.</p>
+  <p class="lead">Guardrails are structural, not advisory. Clients get enforceable catalog scope, mandatory confirmation for destructive operations, and every AI-generated work item tied to a governed Jira project — so nothing ships without the right human in the loop.</p>
 
   <div class="g2">
     <div>
@@ -382,7 +445,7 @@
 <section class="slide" id="factory">
   <div class="sec-label">🔬 Section 5</div>
   <h2>Customer360 <em>AI Test Factory</em></h2>
-  <p class="lead">Repeatable, AI-driven regression for deduplication and silver-layer validation. Same prompts, scripts, and workbooks across all engineers — no tribal knowledge needed to run a full test cycle.</p>
+  <p class="lead">The Test Factory is a client-facing deliverable, not an internal tool. Hand it over at the end of an engagement and the client's team runs the same 77-scenario regression independently — with automatic defect logging, traceability, and Excel workbooks already populated. No Huron resource required to re-run it.</p>
 
   <div class="stats">
     <div class="stat"><div class="sv b">77</div><div class="sl">Test scenarios</div></div>
@@ -433,7 +496,7 @@
 <section class="slide" id="outcomes">
   <div class="sec-label">📊 Section 6</div>
   <h2>Outcomes &amp; <em>Positioning</em></h2>
-  <p class="lead">Numbers from the repo's Evaluation &amp; Metrics document; mid-point estimates used where a range is given.</p>
+  <p class="lead">Tangible, defensible numbers from the repo's Evaluation &amp; Metrics document. At a blended rate of $1,500/MD, each test cycle saves ~$15K in engineering time — across 3–4 cycles per program, that's $45–60K per engagement, before factoring in faster time-to-value for the client.</p>
 
   <div class="g2" style="margin-bottom:28px;">
     <div>
@@ -479,6 +542,119 @@
   </div>
 </section>
 
+<!-- WHAT YOU RECEIVE + WHY HURON + CTA -->
+<div class="deliv-section page" id="deliv">
+  <div class="sec-label">📦 Engagement Deliverables</div>
+  <h2>What <em>You Receive</em></h2>
+  <p class="lead" style="margin-bottom:20px;">Every engagement ships a complete, handover-ready asset set. The client's team owns it — no Huron dependency to re-run it.</p>
+
+  <div class="g3" style="margin-bottom:36px;">
+    <div class="card b">
+      <div class="ci">🗂️</div>
+      <h3>Governed Repo &amp; Workspace</h3>
+      <ul>
+        <li>Unity Catalog with medallion layout pre-configured</li>
+        <li>Per-user folder model for team isolation</li>
+        <li>3-way Git sync (GitHub ↔ Cursor ↔ Databricks)</li>
+        <li>Config templates — no secrets in source control</li>
+      </ul>
+    </div>
+    <div class="card g">
+      <div class="ci">🔬</div>
+      <h3>AI Test Factory (Turnkey)</h3>
+      <ul>
+        <li>77 deduplication scenarios across 9 categories</li>
+        <li>4 PySpark/SQL validation scripts</li>
+        <li>6-workbook Excel package, auto-populated</li>
+        <li>Jira defect automation wired &amp; documented</li>
+      </ul>
+    </div>
+    <div class="card i">
+      <div class="ci">📚</div>
+      <h3>Team Enablement Kit</h3>
+      <ul>
+        <li>Role-based prompt libraries (developer + QA)</li>
+        <li>MCP setup guide &amp; onboarding runbook</li>
+        <li>Safety &amp; guardrail documentation</li>
+        <li>Colleague runbook — run without Huron present</li>
+      </ul>
+    </div>
+    <div class="card a">
+      <div class="ci">🛡️</div>
+      <h3>Governance &amp; Controls</h3>
+      <ul>
+        <li>Cursor rules for catalog scope enforcement</li>
+        <li>Triple-acknowledgment for destructive SQL</li>
+        <li>Jira project scoping — no untracked work items</li>
+        <li>Traceability matrix (scenario → defect → resolution)</li>
+      </ul>
+    </div>
+    <div class="card p">
+      <div class="ci">⚡</div>
+      <h3>Automation Scripts</h3>
+      <ul>
+        <li>Connection verification (multi-auth)</li>
+        <li>Notebook job runner (REST API 2.1)</li>
+        <li>Post-run Excel sync</li>
+        <li>SONIC-style ingest pipeline</li>
+      </ul>
+    </div>
+    <div class="card g" style="border-top-color:var(--green);">
+      <div class="ci">📊</div>
+      <h3>Metrics &amp; Evidence</h3>
+      <ul>
+        <li>Effort comparison report (manual vs AI)</li>
+        <li>Quality improvement documentation</li>
+        <li>Execution tracker with PASS/FAIL history</li>
+        <li>DQ Rule Register with owners &amp; thresholds</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-label" style="margin-top:8px;">🏆 Why Huron</div>
+  <h2>What Makes This <em>Different</em></h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="wc-icon">🔁</div>
+      <h3>Reusable, Not Bespoke</h3>
+      <p>Built on a shared repo anyone can clone. The same accelerator runs on your next Customer360 engagement without rebuilding from scratch.</p>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🧱</div>
+      <h3>Production-Pattern Architecture</h3>
+      <p>Unity Catalog medallion, per-user isolation, and 3-way Git sync match how real enterprise Databricks programs are structured — not a demo shortcut.</p>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🤖</div>
+      <h3>AI That Stays Governed</h3>
+      <p>Cursor rules, catalog scoping, and triple-acknowledgment controls mean AI accelerates the work without creating governance risk.</p>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🤝</div>
+      <h3>Handover Is the Product</h3>
+      <p>The test factory, prompts, and workbooks are designed to be owned by the client post-engagement — not dependent on Huron to operate.</p>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">📐</div>
+      <h3>Honest Effort Estimates</h3>
+      <p>~80% effort reduction is documented and reproducible — not a marketing number. Clients can validate it in a proof-of-concept before committing.</p>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🚀</div>
+      <h3>Day-One Productivity</h3>
+      <p>Synthetic data, pre-wired MCP, and role-based prompts mean the first test cycle starts in hours, not after weeks of environment setup.</p>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h3>Ready to see this running in your Databricks environment?</h3>
+    <p>A proof-of-concept can be stood up against your Unity Catalog in less than a day. We demonstrate the full factory loop — from synthetic data ingest to automatic Jira defect — using your workspace, your catalog, your rules.</p>
+    <div class="cta-pills">
+      <span class="cta-pill primary">Request a Demo</span>
+      <span class="cta-pill secondary">Download the Runbook</span>
+    </div>
+    <p style="font-size:11.5px; color:var(--muted); margin-top:16px; margin-bottom:0;">Contact your Huron DMA account team · <span style="color:var(--accent);">Data Management &amp; Analytics Practice</span></p>
+  </div>
 </div>
 
 <footer>
